@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Query Results</title>
+    <style>
+        body {
+            background-color: rgb(255, 246, 218);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="text">
+        <center><h1>Query Results</h1>
+            <form method="post">
+                <label for="query">Enter your query:</label><br>
+                <input type="text" id="query" name="query"><br>
+                <label for="query2">How many documents:</label><br>
+                <input type="number" id="query2" name="query2"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </center>
+        {% if query %}
+        <h2>Results for "{{ query }}"</h2>
+        <ol>
+            {% for file_name, relevance_score in results %}
+            <li><a href="{{ url_for('show_file_content', file_name=file_name) }}">{{ file_name }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+
+        {% if message %}
+        <h2>{{ message }}</h2>
+        {% endif %}
+
+
+    </div>
+
+    <div class="image" id="image">
+        <img src="static/img/EHCVVn8X4AEnkBP.jpg">
+    </div>
+    <div class="calculating" id="calculating">
+        <img src="static/img/calculating.gif" id="cat" class="cat">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('form').addEventListener('submit', function (event) {
+                document.getElementById('calculating').style.display = 'block';
+                event.preventDefault();
+                setTimeout(function () {
+                    event.target.submit();
+                }, 1500);
+            });
+
+        });
+    </script>
+</div>
+</body>
+</html>
